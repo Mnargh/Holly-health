@@ -1,5 +1,5 @@
 
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 import * as readline from 'node:readline';
 import { groupBy } from 'underscore';
 
@@ -10,8 +10,12 @@ const rl = readline.createInterface({
 
 rl.question(`What term would you like to search for? `,
     (searchTermInput) => {
-        console.log(`Searching for ${searchTermInput}!`);
-        getReposBySearchTerm(searchTermInput);
+        if (searchTermInput) {
+            console.log(`Searching for '${searchTermInput}'`);
+            getReposBySearchTerm(searchTermInput);
+        } else {
+            console.log('No input provided. Exiting...');
+        }
         rl.close();
     }
 );
@@ -57,7 +61,7 @@ async function fetchRepoData (searchTerm, pageNumber) {
         if (!res.ok) {
             throw new Error(`HTTP error: ${res.status}`);
         }
-        return res.json()
+        return res.json();
     })
     .then(data => data.items)
     .catch(err => console.log(err));
@@ -70,7 +74,7 @@ const removeNullLanguages = (data) =>
 export const sortByLanguageOccurances = (data) => {
     const langauges = Object.keys(data)
     const languageOccurances = langauges.map(language => ({ [language]: data[language].length}));
-    return languageOccurances.sort((a,b) => { return Object.values(b) - Object.values(a) })
+    return languageOccurances.sort((a,b) => { return Object.values(b) - Object.values(a) });
 }
 
 export const outputOccurances = (occurances) => {
