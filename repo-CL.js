@@ -23,9 +23,10 @@ rl.question(`What term would you like to search for? `,
 
 export const getReposBySearchTerm = (searchTerm) => {
     const apiReponses = [];
-    for ( let i = 1; i <= 2; i++) {
+    for ( let i = 1; i <= 10; i++) {  
         apiReponses.push(fetchRepoData(searchTerm, i));
     };
+
     Promise.all(apiReponses).then(
         data => {            
             // for each item in data, filter out if item.language is Null or empty string.
@@ -40,6 +41,8 @@ export const getReposBySearchTerm = (searchTerm) => {
             // output
             outputOccurances(orderedOccurances);
         }
+    ).catch(err => 
+        console.log(err.message)
     )
 }
 
@@ -47,8 +50,8 @@ async function fetchRepoData (searchTerm, pageNumber) {
     const queryString = `"${searchTerm}" in:description`
     const url = 'https://api.github.com/search/repositories?'+ new URLSearchParams({ 
         q: queryString,
-        per_page: 100, // change to 100
-        page: pageNumber // change to loop to page 10
+        per_page: 100,
+        page: pageNumber
     });
     const response = await fetch(url,
     {
@@ -59,12 +62,11 @@ async function fetchRepoData (searchTerm, pageNumber) {
     })
     .then((res) => { 
         if (!res.ok) {
-            throw new Error(`HTTP error: ${res.status}`);
+            throw new Error(`API error, HTTP status: ${res.status}`);
         }
         return res.json();
     })
     .then(data => data.items)
-    .catch(err => console.log(err));
     return response;
 }
 
