@@ -60,6 +60,12 @@ Install the required npm packages
 
 ```npm i```
 
+Ensure you are signed up with a personal access token to the Github Rest API
+
+Add your personal access token as an environment variable called `GITHUB_API_TOKEN` in a `.env` file in the root directory of this repository
+
+`GITHUB_API_TOKEN='<your_personal_token_here>'`
+
 To run the application from your command line terminal
 
 ```node repo-CL.js```
