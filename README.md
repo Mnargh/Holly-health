@@ -67,8 +67,10 @@ To run the application from your command line terminal
 
 ## Future Improvements
 
-Given more time I would:
+This was a fun test, and a couple of hours passed very quickly. Given more time I would:
 
 * Write unit tests for the functions used to sort, order and output the data, while mocking the response from the api. I started to do this, but ran into some issues using `Jest` in combination with `Babel` to transpile.
+
+* Change the prompt so that the user is re-prompted if no input is given instead of just exiting the program for an improved user experience.
 
 * Convert the program to Typescript for a more robust solution that would be easier to expand. I also believe this would help resolve the issue I was having with `Jest` for writing unit tests.
